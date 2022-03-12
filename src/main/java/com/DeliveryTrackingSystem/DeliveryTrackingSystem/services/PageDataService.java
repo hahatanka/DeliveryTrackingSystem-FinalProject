@@ -31,6 +31,8 @@ public class PageDataService {
         availablePages.add(new Page("success", "Success", "Success", "/success"));
         availablePages.add(new Page("viewAppointments", "Appointments", "Users Appointments", "/viewAppointments"));
         availablePages.add(new Page("findParcel", "Find a Parcel", "Find a Parcel", "/findParcel"));
+        availablePages.add(new Page("trackParcel", "Track Parcel", "Track a Parcel", "/trackParcel"));
+        availablePages.add(new Page("userParcels", "My Parcels", "My Parcels", "/userParcels"));
 
 
 

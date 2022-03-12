@@ -25,4 +25,5 @@ public class AppointmentService {
         return (ArrayList<Appointment>) appointmentRepository.findAppointmentByDateOfVisit(date);
     }
 
+
 }

@@ -14,9 +14,10 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    String trackingNumber;
-    String receiverName;
-    String dateOfVisit;
+    private Long visitorId;
+    private String trackingNumber;
+    private String receiverName;
+    private String dateOfVisit;
 
 
 }

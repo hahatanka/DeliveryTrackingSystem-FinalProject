@@ -133,9 +133,9 @@ public class UserController {
 
     @GetMapping("/bookAppointment/{userId}/{trackingNumber}")
     public String loadBookAppointmentPage(@PathVariable String trackingNumber, Appointment appointment,
-                                          Model model, @PathVariable Long userId,
-                                          @RequestParam(name = "status", required = false) String status,
-                                          @RequestParam(name = "message", required = false) String message
+              Model model, @PathVariable Long userId,
+              @RequestParam(name = "status", required = false) String status,
+              @RequestParam(name = "message", required = false) String message
     ) {
         model.addAttribute("appTitle", pageDataService.getAppTitle());
         model.addAttribute("shortAp pTitle", pageDataService.getShortTitle());
@@ -144,6 +144,9 @@ public class UserController {
         model.addAttribute("receiverName", userService.getUserById(userId).getName());
         model.addAttribute("status", status);
         model.addAttribute("message", message);
+        model.addAttribute("userId", userId);
+
+        System.out.println("Visitor id  "+userId);
 
         appointment.setTrackingNumber(trackingNumber);
         appointment.setReceiverName(userService.getUserById(userId).getName());
@@ -152,8 +155,10 @@ public class UserController {
     }
 
     @PostMapping("/bookAppointment")
-    public String handleBookAppointment(Appointment appointment, @RequestParam(name = "userId", required = false) Long userId) {
+    public String handleBookAppointment(Appointment appointment,
+                @RequestParam(name = "userId", required = false) Long userId) {
         try {
+            appointment.setVisitorId(userId);
             appointmentService.createAppointment(appointment);
             System.out.println("Appointment:" + appointment);
             return "redirect:bookAppointment/" + userId + "/" + appointment.getTrackingNumber() + "?status=register_success";
