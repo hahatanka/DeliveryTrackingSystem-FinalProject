@@ -30,6 +30,8 @@ public class PageDataService {
         availablePages.add(new Page("bookAppointment", "Book an Appointment", "Book an Appointment", "/bookAppointment"));
         availablePages.add(new Page("success", "Success", "Success", "/success"));
         availablePages.add(new Page("viewAppointments", "Appointments", "Users Appointments", "/viewAppointments"));
+        availablePages.add(new Page("findParcel", "Find a Parcel", "Find a Parcel", "/findParcel"));
+
 
 
         userOptions.add(new Page("registerParcel", "Register Parcel", "Register a Parcel", "/registerParcel"));

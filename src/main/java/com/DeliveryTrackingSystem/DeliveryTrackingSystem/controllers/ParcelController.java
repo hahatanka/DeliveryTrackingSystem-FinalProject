@@ -113,8 +113,8 @@ public class ParcelController {
     public String loadFindParcelPage(@RequestParam(name = "tracking", required = false) String trackingNumber,
             Model model, @PathVariable Long userId) {
         model.addAttribute("appTitle", pageDataService.getAppTitle());
-        model.addAttribute("pageInfo", pageDataService.getPage("TrackParcel"));
-        model.addAttribute("userOptions", pageDataService.getUserOptions());
+        model.addAttribute("pageInfo", pageDataService.getPage("findParcel"));
+        model.addAttribute("managerOptions", pageDataService.getManagerOptions());
         model.addAttribute("userId", userId);
         model.addAttribute("trackingNumber", trackingNumber);
         return "/findParcel";
@@ -130,8 +130,8 @@ public class ParcelController {
         try {
             Parcel parcel = parcelService.findParcelByTrackingNumber(trackingNumber);
             model.addAttribute("appTitle", pageDataService.getAppTitle());
-            model.addAttribute("pageInfo", pageDataService.getPage("TrackParcel"));
-            model.addAttribute("userOptions", pageDataService.getUserOptions());
+            model.addAttribute("pageInfo", pageDataService.getPage("findParcel"));
+            model.addAttribute("managerOptions", pageDataService.getManagerOptions());
             model.addAttribute("trackingNumber", trackingNumber);
             model.addAttribute("senderName", parcel.getSenderName());
             model.addAttribute("receiverName", parcel.getReceiverName());
@@ -160,12 +160,21 @@ public class ParcelController {
                 @RequestParam(name = "currentTrackNum", required = false) String trackingNumber,
                 @RequestParam(name = "comment", required = false) String comment,
                 @RequestParam(name="country", required = false) String newLocation,
-                @RequestParam(name="status", required = false) String status)
+                @RequestParam(name="status", required = false) String status) throws Exception
         {
+            Parcel parcel = parcelService.findParcelByTrackingNumber(trackingNumber);
+
+            model.addAttribute("appTitle", pageDataService.getAppTitle());
+            model.addAttribute("pageInfo", pageDataService.getPage("findParcel"));
+            model.addAttribute("managerOptions", pageDataService.getManagerOptions());
+            model.addAttribute("trackingNumber", trackingNumber);
+            model.addAttribute("senderName", parcel.getSenderName());
+            model.addAttribute("receiverName", parcel.getReceiverName());
+            model.addAttribute("deliveryAddress", parcel.getReceiverAddress());
+            model.addAttribute("deliveryCountry", parcel.getDeliveryCountry());
             model.addAttribute("status", status);
             model.addAttribute("countriesList", countryService.getCountriesList());
             model.addAttribute("country", newLocation);
-            model.addAttribute("trackingNumber", trackingNumber);
             model.addAttribute("userId", userId);
 
             Date date = new Date();

@@ -1,47 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        body {
+            background-image: url("https://images.pexels.com/photos/333525/pexels-photo-333525.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+            background-repeat: no-repeat;
+            background-position: right 45%;
+            background-size: 650px 1060px;
+        }
+        div.cropped-image {
+            font-size: 3.5em;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 20px;
+
+            background-image: url("https://images.pexels.com/photos/333525/pexels-photo-333525.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+            background-position: left 55%;
+            background-size: 2000px 1060px;
+            background-repeat: no-repeat;
+
+            color: transparent;
+            -webkit-background-clip: text;
+        }
+        a.btn {
+            background: hsla(298, 35%, 17%, 0.6);
+            color: antiquewhite;
+            width:200px;
+
+        }
+        a.btn:hover {
+            background: hsla(298, 35%, 17%, 0.8);
+            color: antiquewhite;
+
+        }
+        button.btn{
+            background: hsla(298, 35%, 17%, 0.2);
+            color: #000;
+            width:200px;
+        }
+        button.btn:hover {
+            background: hsla(298, 35%, 17%, 0.6);
+            color: antiquewhite;
+        }
+
+    </style>
     <meta charset="UTF-8">
-    <title>DTS || Manager </title>
+    <title>DTS || User </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<body style="background-color:hsl(9, 100%, 64%)">
-<header class="container-fluid p-3 text-white" style="background-color:hsla(0, 100%, 100%, 0.3)">
-    <h1 th:text="${appTitle}"></h1>
-    <nav class="nav-fill nav mt-3">
-      <span class="nav-item" th:each="page:${userOptions}">
-        <a class="btn bg-white text-primary" th:href="${page.getPageUrl()+ '/' + userId}" th:text="${page.getPageTitle()}"></a>
+<body>
+<header class="container-fluid pb-3 pt-1" style="background-color:hsla(298, 35%, 17%, 0.2)">
+    <div class="cropped-image" >DTS</div>
+    <nav class="nav justify-content-end">
+      <span class="nav-item p-1"   th:each="page:${userOptions}">
+        <a class="btn" style="width:140px" th:href="${page.getPageUrl()+ '/' + userId}" th:text="${page.getPageTitle()}"></a>
       </span>
-        <span class="nav-item">
-        <a class="nav-item btn bg-white text-primary" href="/" text="Logout">Logout</a>
+        <span class="nav-item p-1">
+        <a class="btn" style="width:140px" href="/" text="Logout">Logout</a>
         </span>
     </nav>
+
 </header>
 <main class="container mt-3">
-    <h3 class="text-primary mb-3" th:text="${pageInfo.getPageTitle()}"></h3>
-    <div>
-        <label th:if="${status == 'signup_success'}" class="list-group-item-success p-3 rounded-1">
-            Registration successful, please enter your details to login
-        </label>
-        <label th:if="${status == 'login_failed'}" class="list-group-item-danger p-3 rounded-1">
-            <span th:text="${message}"></span>
-        </label>
-    </div>
-    <section class="p-2">
-
-        <form method="post" action="/registerParcel" >
+    <h3 class="text-secondary col-8 mt-3" style="padding-left: 15px" th:text="${pageInfo.getPageTitle()}"></h3>
+    <section>
+        <form class="row " style="padding-left: 15px" method="post" action="/registerParcel" >
             <input type="hidden" th:value="${userId}" name="userId">
-            <div class="form-floating mb-3">
+            <div class="row">
+                <div class="form-floating g-3 col-md-3 mb-2">
                 <input name="senderName" id="floatingInput" class="form-control form-control-sm" type="text" placeholder="Sender Name"required>
                 <label for="floatingInput">Sender Name</label>
-            </div>
-
-            <div class="form-floating mb-3">
+                </div>
+            <div class="form-floating g-3 col-md-3 mb-2">
                 <input name="senderAddress" id="floatingAddress" class="form-control form-control-sm" type="text" placeholder="Address"required>
                 <label for="floatingAddress">Address</label>
             </div>
+            </div>
 
-            <div class="form mb-3">
+            <div class="form mb-2 col-5">
                 <select class="form-select" name="senderCountry">
                     <option value="">Choose your country</option>
                     <option th:each="country : ${countriesList}"
@@ -50,15 +86,17 @@
                     </option>
                 </select>
             </div>
-            <div class="form-floating mb-3">
+            <div class="row">
+                <div class="form-floating g-3 col-md-3 mb-2">
                 <input name="receiverName" id="floatingReceiver" class="form-control form-control-sm" type="text" placeholder="Receiver Name"required>
                 <label for="floatingReceiver">Receiver Name</label>
-            </div>
-            <div class="form-floating mb-3">
+                </div>
+            <div class="form-floating g-3 col-md-3 mb-2">
                 <input name="receiverAddress" id="floatingReceiverAddress" class="form-control form-control-sm" type="text" placeholder="Address"required>
                 <label for="floatingReceiverAddress">Address</label>
             </div>
-            <div class="form mb-3">
+            </div>
+            <div class="form mb-3 col-5">
                 <select class="form-select" name="deliveryCountry">
                     <option value="">Choose country</option>
                     <option th:each="country : ${countriesList}"
@@ -67,12 +105,13 @@
                     </option>
                 </select>
             </div>
-            <div class="form-floating mb-3">
+            <div class="row">
+            <div class="form mb-2 col-md-6">
                 <textarea name="description" class="form-control" placeholder="Description" id="floatingTextarea"></textarea>
-                <label for="floatingTextarea">Description</label>
             </div>
-            <div class="row p-1 mb-3">
-                <button class="btn btn-primary p-3" type="submit">Register a Parcel</button>
+            </div>
+            <div class="row" style="padding-left: 200px">
+                <button class="btn col-3" type="submit">Register a Parcel</button>
             </div>
         </form>
     </section>
