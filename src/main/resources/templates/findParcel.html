@@ -69,7 +69,6 @@
             <button class="btn p-2 mb-2 col-6" type="submit">Find Parcel</button>
         </div>
     </form>
-
     <div th:if="${trackingNumber} != null">
         <div>
         <ul class="list-group list-group-flush col-6">
@@ -79,7 +78,6 @@
             <li class="list-group-item list-group-item-light list-group-item-action" th:text="'Delivery Address: '+ ${deliveryAddress} +', '+ ${deliveryCountry}"></li>
         </ul>
         </div>
-
     <form  class="row g-6 mt-1" method="get" th:action="'/editParcel'">
         <input type="hidden" th:value="${userId}" name="userId">
         <input name="currentTrackNum" th:value="${trackingNumber}" hidden >

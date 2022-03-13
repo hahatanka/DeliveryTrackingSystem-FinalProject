@@ -13,7 +13,6 @@ import java.util.List;
 public interface TrackingRepository extends CrudRepository<ParcelTracking, String>{
 
     List<ParcelTracking> findAllByTrackingNumber(String trackingNumber);
-    ParcelTracking findTopByTrackingNumber(String trackingNumber);
     ParcelTracking findTopByTrackingNumberOrderByIdDesc(String trackingNumber);
 
 }
