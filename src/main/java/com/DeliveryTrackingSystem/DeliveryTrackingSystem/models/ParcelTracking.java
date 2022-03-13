@@ -3,10 +3,7 @@ package com.DeliveryTrackingSystem.DeliveryTrackingSystem.models;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 @Getter
 @Setter
@@ -15,9 +12,12 @@ import java.sql.Timestamp;
 @ToString
 
 @Entity
+
 public class ParcelTracking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     Long id;
     String trackingNumber;
     String status;

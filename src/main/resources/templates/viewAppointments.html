@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <style>
         body {
@@ -9,7 +9,7 @@
             background-size: 650px 1060px;
         }
         div.cropped-image {
-            font-size: 4em;
+            font-size: 3.5em;
             font-weight: bold;
             text-align: left;
             padding-left: 20px;
@@ -42,12 +42,12 @@
 
     </style>
     <meta charset="UTF-8">
-    <title>DTS || User </title>
+    <title>DTS || Manager </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <header class="container-fluid" style="background-color:hsla(298, 35%, 17%, 0.2)">
-    <div class="cropped-image" >DTS</div>
+    <div class="cropped-image" th:text="'DTS | ' + ${userName}"></div>
     <nav class="nav justify-content-end">
       <span class="nav-item p-1 pb-2" th:each="page:${managerOptions}">
         <a class="btn" th:href="${page.getPageUrl()+ '/' + userId}" th:text="${page.getPageTitle()}"></a>
@@ -58,7 +58,7 @@
     </nav>
 </header>
 <main class="container mt-2">
-    <h3 class="text-secondary col-8" style="padding-left: 20px" th:text="${pageInfo.getPageTitle()}">
+    <h3 class="text-secondary col-8" th:text="${pageInfo.getPageTitle()}">
     </h3>
     <form method="get" th:action="'/viewAppointments'">
         <input type="hidden" th:value="${userId}" name="userId">
@@ -70,14 +70,16 @@
             <button class="btn p-3 col-5" type="submit">View Appointments</button>
         </div>
     </form>
+    <div th:if="${date} != null">
     <h3 class="text-secondary col-8 mt-2" style="padding-left: 10px" th:text="'Viewing Appointments for: ' + ${date}"></h3>
     <div class="list-group list-group-flush col-6" th:each="appointment:${listOfAppointments}">
-        <a th:href="'/findParcel/' + ${appointment.getVisitorId()} + '?tracking=' + ${appointment.getTrackingNumber()}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a th:href="'/findParcel?userId=' + ${appointment.getVisitorId()} + '&tracking=' + ${appointment.getTrackingNumber()}" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <p class="mb-1" th:text="${date} + ', ' + ${appointment.getTrackingNumber()} + ', ' + ${appointment.getReceiverName()}" >
                 </p>
             </div>
         </a>
+    </div>
     </div>
 </main>
 </body>

@@ -12,7 +12,7 @@
             font-size: 4em;
             font-weight: bold;
             text-align: left;
-            padding-left: 20px;
+            padding-left: 50px;
             padding-top: 5px;
 
             background-image: url("https://images.pexels.com/photos/333525/pexels-photo-333525.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
@@ -50,19 +50,19 @@
 <header class="container-fluid " style="background-color:hsla(298, 35%, 17%, 0.2)">
     <div class="cropped-image" >DTS</div>
 </header>
-<main class="container-fluid mt-3">
-    <h3 class="text-secondary col-8" style="padding-left: 20px; padding-top: 15px" th:text="Login"></h3>
-    <div>
-        <label th:if="${status == 'signup_success'}" class="list-group-item-success p-3 rounded-1">
+<main class="container mt-3">
+    <h3 class="text-secondary col-7" style="padding-top: 15px" th:text="Login"></h3>
+    <div class="row col-5">
+        <label th:if="${status == 'signup_success'}" class="list-group-item-success rounded-1 text-center p-2">
             Registration successful, please enter your details to login
         </label>
-        <label th:if="${status == 'login_failed'}" class="list-group-item-danger p-3 rounded-1">
+        <label th:if="${status == 'login_failed'}" class="list-group-item-success rounded-1 text-center p-2">
             <span th:text="${message}"></span>
         </label>
     </div>
-    <section class="p-3">
-        <form method="post" action="/login" style="padding-left: 20px">
-            <div class="form-floating mb-3 col-5">
+    <section>
+        <form method="post" action="/login" >
+            <div class="form-floating mb-3 col-5 mt-2">
                 <input name="username" id="floatingInput" class="form-control form-control-sm" type="text" placeholder="username"required>
                 <label for="floatingInput">Username</label>
             </div>
@@ -70,18 +70,15 @@
                 <input name="password" id="floatingPassword" class="form-control form-control-sm" type="password" placeholder="password"required>
                 <label for="floatingPassword">Password</label>
             </div>
-            <div class="row mb-3">
-                <button type="submit" class="btn p-3 col-5">Login</button>
+            <div class="row mb-1">
+                <button type="submit" class="btn p-2 col-5">Login</button>
             </div>
         </form>
         <div>
-            <h3 class="text-secondary col-8 mt-5" style="padding-left: 20px">Or register if you do not have an account</h3>
+            <p class="text-secondary col-8 mt-4" style="padding-left: 20px">Haven't got account yet?
+                <a href="/register" class="text-secondary col-8 mt-4 fw-bold">Register here!</a>
+            </p>
         </div>
-        <form action="/register" style="padding-left: 20px">
-            <div class="row mb-3">
-            <button type="submit" class="btn p-3 col-5">Register</button>
-            </div>
-        </form>
     </section>
 </main>
 </body>

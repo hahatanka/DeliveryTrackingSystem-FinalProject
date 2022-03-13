@@ -9,7 +9,7 @@
             background-size: 650px 1060px;
         }
         div.cropped-image {
-            font-size: 4em;
+            font-size: 3.5em;
             font-weight: bold;
             text-align: left;
             padding-left: 20px;
@@ -50,7 +50,7 @@
 </head>
 <body>
 <header class="container-fluid pb-3" style="background-color:hsla(298, 35%, 17%, 0.2)">
-    <div class="cropped-image" >DTS</div>
+    <div class="cropped-image" th:text="'DTS | ' + ${userName}"></div>
     <nav class="nav justify-content-end">
         <span class="nav-item">
         <a class="btn" href="/" text="Logout">Logout</a>
@@ -58,7 +58,8 @@
     </nav>
 </header>
 <main class="container mt-3">
-    <h3 class="text-secondary display-3 d-grid gap-2 col-6 text-center pt-5"  th:text="${pageInfo.getPageTitle()+ ', ' + userName}"></h3>
+    <h3 class="text-secondary display-3 d-grid gap-2 col-6 text-center pt-5"  th:text="${pageInfo.getPageTitle()+','}"></h3>
+    <h3 class="text-secondary display-3 d-grid gap-2 col-6 text-center"  th:text="${userName+ '!'}"></h3>
     <div>
         <label th:if="${status == 'register_success'}" class="list-group-item-success p-3 rounded-1" th:text="'Your parcel is registered, tracking number: '+${trackingNumber}">
         </label>

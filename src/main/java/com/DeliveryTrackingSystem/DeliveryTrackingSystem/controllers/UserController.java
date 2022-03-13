@@ -105,7 +105,7 @@ public class UserController {
         model.addAttribute("appTitle", pageDataService.getAppTitle());
         model.addAttribute("pageInfo", pageDataService.getPage("managerMenu"));
         model.addAttribute("managerOptions", pageDataService.getManagerOptions());
-        model.addAttribute("userName", userService.getUserById(userId).getUserName());
+        model.addAttribute("userName", userService.getUserById(userId).getName());
         model.addAttribute("userId", userId);
 
         return "managerMenu";
@@ -122,7 +122,7 @@ public class UserController {
         model.addAttribute("appTitle", pageDataService.getAppTitle());
         model.addAttribute("pageInfo", pageDataService.getPage("userMenu"));
         model.addAttribute("userOptions", pageDataService.getUserOptions());
-        model.addAttribute("userName", userService.getUserById(userId).getUserName());
+        model.addAttribute("userName", userService.getUserById(userId).getName());
         model.addAttribute("userId", userId);
         model.addAttribute("status", status);
         model.addAttribute("message", message);
@@ -145,6 +145,7 @@ public class UserController {
         model.addAttribute("status", status);
         model.addAttribute("message", message);
         model.addAttribute("userId", userId);
+
 
         System.out.println("Visitor id  "+userId);
 
@@ -176,6 +177,8 @@ public class UserController {
         model.addAttribute("managerOptions", pageDataService.getManagerOptions());
         model.addAttribute("userId", userId);
         model.addAttribute("date", date);
+        model.addAttribute("userName", userService.getUserById(userId).getName());
+
         try {
             model.addAttribute("listOfAppointments", appointmentService.viewAppointmentsByDate(date));
 
@@ -199,11 +202,17 @@ public class UserController {
             model.addAttribute("managerOptions", pageDataService.getManagerOptions());
             model.addAttribute("date", date);
             model.addAttribute("userId", userId);
+            model.addAttribute("userName", userService.getUserById(userId).getName());
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return "viewAppointments";
+    }
+
+    @GetMapping("/send")
+    public String sendMessage(){
+        return "redirect:/";
     }
 }
 

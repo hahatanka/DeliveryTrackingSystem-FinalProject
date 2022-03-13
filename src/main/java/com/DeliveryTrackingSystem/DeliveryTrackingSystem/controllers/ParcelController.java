@@ -45,6 +45,7 @@ public class ParcelController {
         model.addAttribute("userOptions", pageDataService.getUserOptions());
         model.addAttribute("countriesList", countryService.getCountriesList());
         model.addAttribute("userId", userId);
+        model.addAttribute("userName", userService.getUserById(userId).getName());
 
         return "registerParcel";
     }
@@ -79,35 +80,43 @@ public class ParcelController {
         model.addAttribute("userName", userService.getUserById(userId).getUserName());
         ArrayList<Parcel> parcels = parcelService.viewUsersParcels(userId);
         model.addAttribute("parcelList", parcels);
-//
+        model.addAttribute("userName", userService.getUserById(userId).getName());
+
         return "/userParcels";
     }
 
     @GetMapping("/trackParcel/{userId}")
     public String viewTracking(@RequestParam(name = "tracking", required = false) String trackingNumber,
-              Model model, @PathVariable Long userId) {
+              Model model, @PathVariable Long userId) throws Exception {
         model.addAttribute("appTitle", pageDataService.getAppTitle());
         model.addAttribute("pageInfo", pageDataService.getPage("TrackParcel"));
         model.addAttribute("userOptions", pageDataService.getUserOptions());
-        model.addAttribute("userName", userService.getUserById(userId).getUserName());
+        model.addAttribute("userName", userService.getUserById(userId).getName());
         model.addAttribute("userId", userId);
         model.addAttribute("trackingNumber", trackingNumber);
         model.addAttribute("listOfTrackingEvents",
                 parcelService.viewTrackingEvents(trackingNumber));
-        System.out.println(parcelService.viewTrackingEvents(trackingNumber));
+        if (trackingNumber != null) {
+            Parcel parcel = parcelService.findParcelByTrackingNumber(trackingNumber);
+            model.addAttribute("deliveryCountry", parcel.getDeliveryCountry());
+            model.addAttribute("currentUserCountry", userService.getUserById(userId).getResidenceCountry());
 
+            return "/trackParcel";
+        }
         return "/trackParcel";
     }
 
-    @GetMapping("/trackParcel")
-    public String handleTrackParcel(Model model,
-              @RequestParam(name = "trackingNumberInput", required = false) String trackingNumber,
-              @RequestParam(name = "userId", required = false) String userId) throws Exception {
-        model.addAttribute("userId", userId);
-        model.addAttribute("listOfTrackingEvents", parcelService.viewTrackingEvents(trackingNumber));
 
-        return "redirect:trackParcel/" + userId + "?tracking=" + trackingNumber;
-    }
+        @GetMapping("/trackParcel")
+        public String handleTrackParcel (Model model,
+                @RequestParam(name = "trackingNumberInput", required = false) String trackingNumber,
+                @RequestParam(name = "userId", required = false) String userId) throws Exception {
+            model.addAttribute("userId", userId);
+            model.addAttribute("listOfTrackingEvents", parcelService.viewTrackingEvents(trackingNumber));
+
+            return "redirect:trackParcel/" + userId + "?tracking=" + trackingNumber;
+        }
+
 
     @GetMapping("/findParcel/{userId}")
     public String loadFindParcelPage(@RequestParam(name = "tracking", required = false) String trackingNumber,
@@ -117,6 +126,7 @@ public class ParcelController {
         model.addAttribute("managerOptions", pageDataService.getManagerOptions());
         model.addAttribute("userId", userId);
         model.addAttribute("trackingNumber", trackingNumber);
+        model.addAttribute("userName", userService.getUserById(userId).getName());
         return "/findParcel";
     }
 
@@ -129,6 +139,7 @@ public class ParcelController {
                                    ) {
         try {
             Parcel parcel = parcelService.findParcelByTrackingNumber(trackingNumber);
+
             model.addAttribute("appTitle", pageDataService.getAppTitle());
             model.addAttribute("pageInfo", pageDataService.getPage("findParcel"));
             model.addAttribute("managerOptions", pageDataService.getManagerOptions());
@@ -141,6 +152,11 @@ public class ParcelController {
             model.addAttribute("countriesList", countryService.getCountriesList());
             model.addAttribute("country", newLocation);
             model.addAttribute("userId", userId);
+            ParcelTracking parcelTracking = parcelService.findLastTrackingEvent(trackingNumber);
+            model.addAttribute("currentLocation", parcelTracking.getCurrentLocation());
+            model.addAttribute("currentStatus", parcelTracking.getStatus());
+            model.addAttribute("userName", userService.getUserById(userId).getName());
+
             List<Status> statuses = new ArrayList<>();
             statuses.add(Status.REGISTERED);
             statuses.add(Status.RETURNED);
@@ -176,6 +192,18 @@ public class ParcelController {
             model.addAttribute("countriesList", countryService.getCountriesList());
             model.addAttribute("country", newLocation);
             model.addAttribute("userId", userId);
+            ParcelTracking parcelTracking = parcelService.findLastTrackingEvent(trackingNumber);
+            model.addAttribute("currentLocation", newLocation);
+            model.addAttribute("currentStatus", status);
+            model.addAttribute("userName", userService.getUserById(userId).getName());
+
+            List<Status> statuses = new ArrayList<>();
+            statuses.add(Status.REGISTERED);
+            statuses.add(Status.RETURNED);
+            statuses.add(Status.DELIVERED);
+            statuses.add(Status.IN_TRANSIT);
+            statuses.add(Status.RECEIVED);
+            model.addAttribute("listOfStatuses", statuses);
 
             Date date = new Date();
             Timestamp ts=new Timestamp(date.getTime());

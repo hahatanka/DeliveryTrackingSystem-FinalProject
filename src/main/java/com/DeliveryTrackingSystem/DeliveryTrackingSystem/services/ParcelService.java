@@ -35,6 +35,10 @@ public class ParcelService {
         return (ArrayList<ParcelTracking>) trackingRepository.findAllByTrackingNumber(trackingNumber);
     }
 
+    public ParcelTracking findLastTrackingEvent(String trackingNumber){
+        return (ParcelTracking) trackingRepository.findTopByTrackingNumberOrderByIdDesc(trackingNumber);
+    }
+
 
     public ArrayList<Parcel> viewUsersParcels(Long userId){
         return (ArrayList<Parcel>) parcelRepository.findAllBySenderId(userId);

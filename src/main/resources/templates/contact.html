@@ -10,11 +10,10 @@
             background-size: 650px 1060px;
         }
         div.cropped-image {
-            font-size: 4em;
+            font-size: 11em;
             font-weight: bold;
             text-align: left;
-            padding-left: 20px;
-            padding-top: 5px;
+            padding-left: 80px;
 
             background-image: url("https://images.pexels.com/photos/333525/pexels-photo-333525.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
             background-position: left 55%;
@@ -25,34 +24,61 @@
             -webkit-background-clip: text;
         }
         a.btn {
-            background: hsla(298, 35%, 17%, 0.2);
-            color: #000;
+            background: hsla(298, 35%, 17%, 0.6);
+            color: antiquewhite;
 
         }
         a.btn:hover {
-            background: hsla(298, 35%, 17%, 0.6);
+            background: hsla(298, 35%, 17%, 0.8);
             color: antiquewhite;
         }
-        button.btn{
-            background: hsla(298, 35%, 17%, 0.2);
-            color: #000;
+        button.btn {
+            background: hsla(298, 35%, 17%, 0.6);
+            color: antiquewhite;
+
         }
         button.btn:hover {
-            background: hsla(298, 35%, 17%, 0.6);
+            background: hsla(298, 35%, 17%, 0.8);
             color: antiquewhite;
         }
+
 
     </style>
     <meta charset="UTF-8">
-    <title>DTS || Login </title>
+    <title>DTS || About </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<header class="container-fluid " style="background-color:hsla(298, 35%, 17%, 0.2)">
-    <div class="cropped-image" >DTS</div>
+<header class="container-fluid " style="background-color:hsla(298, 35%, 17%, 0.2); padding: 30px">
 </header>
-<main class="container-fluid mt-3">
+<main class="container-fluid">
+    <div class="cropped-image" >DTS</div>
 
+        <h3 class="text-secondary fw-bold mb-2" style="padding-left: 50px">Have questions? Feel free to drop us a message</h3>
+    <form class="row " method="get" action="/send" >
+    <div class="row" style="padding-left: 50px">
+        <div class="form-floating g-3 col-sm-3 mb-1">
+            <input name="senderName" id="floatingInput" class="form-control" type="text" placeholder="Sender Name"required>
+            <label for="floatingInput">Name</label>
+        </div>
+        <div class="form-floating g-3 col-sm-3 mb-1">
+            <input name="senderEmail" id="floatingEmail" class="form-control" type="email" placeholder="Email"required>
+            <label for="floatingEmail">Email</label>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 50px">
+        <div class="form mb-2 col-sm-6 mt-3">
+            <textarea name="description" class="form-control" placeholder="Enter your message here.." id="floatingTextarea"></textarea>
+        </div>
+    </div>
+    <div  class="btn-toolbar" style="padding-left: 70px">
+        <button class="btn " type="submit" data-inline="true" style="margin-left: 8rem; width: 150px">Send</button>
+        <a class="btn active" href="/" role="button" data-inline="true" style="margin-left: 5rem; width: 150px">Go Back</a>
+    </div>
+    </form>
+    <p></p>
+    <p class="text-secondary fw-light" style="padding-left: 100px">In case you need help ASAP you can reach us by phone: +37127788991</p>
 </main>
 </body>
 </html>

@@ -40,6 +40,10 @@
             background: hsla(298, 35%, 17%, 0.6);
             color: antiquewhite;
         }
+        input.form-check-input:checked {
+            background-color: hsla(298, 35%, 17%, 0.6)!important;
+            border-color: hsla(298, 35%, 17%, 0.8);
+        }
 
     </style>
     <meta charset="UTF-8">
@@ -74,6 +78,7 @@
         <label for="floatingPass">Password</label>
     </div>
     </div>
+    <div class="row">
     <div class="form mb-3 g-3 col-md-3">
         <select class="form-select" name="residenceCountry">
             <option value="">Choose your country</option>
@@ -83,14 +88,15 @@
             </option>
         </select>
     </div>
-    <div class="form-floating col-md-2">
+    <div class="form-floating g-3 col-md-2 mb-3">
         <input name="city" id="floatingLocation" class="form-control form-control-sm" type="text" placeholder="Enter your city" required>
         <label for="floatingLocation">Enter your city</label>
     </div>
+    </div>
     <div class="col-12">
-        <div class="form-check">
-        <input class="form-check-input" type="checkbox" role="switch" name="isManager" th:checked="${isChecked}"  >
-        <label class="text-secondary fw-bold">Please tick if you are a post manager</label>
+        <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" name="isManager" th:checked="${isChecked}"  >
+        <label class="custom-control-label text-secondary fw-bold">Please switch if you are a post manager</label>
         </div>
         </div>
     <div class="row">
